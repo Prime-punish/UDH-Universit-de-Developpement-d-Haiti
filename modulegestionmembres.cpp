@@ -127,14 +127,17 @@ void ModuleGestionMembres::populateTable()
             // Statut badge
             QLabel *badge = new QLabel(statut);
             badge->setAlignment(Qt::AlignCenter);
-            QString badgeColor;
-            if (statut == "Actif") badgeColor = "background-color: #c6f6d5; color: #276749;";
-            else if (statut == "En congé") badgeColor = "background-color: #fefcbf; color: #975a16;";
-            else if (statut == "Rétrogradé") badgeColor = "background-color: #fed7d7; color: #9b2c2c;";
-            else if (statut == "Licencié") badgeColor = "background-color: #feb2b2; color: #742a2a;";
-            else if (statut == "Révoqué") badgeColor = "background-color: #e2e8f0; color: #4a5568;";
-            else badgeColor = "background-color: #e2e8f0; color: #4a5568;";
-            badge->setStyleSheet(QString("font-size: 11px; font-weight: bold; border-radius: 10px; padding: 4px 12px; %1").arg(badgeColor));
+            badge->setFixedWidth(95);
+            badge->setFixedHeight(24);
+            if (statut == "Actif") {
+                badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
+            } else if (statut == "En congé") {
+                badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
+            } else if (statut == "Rétrogradé" || statut == "Licencié") {
+                badge->setStyleSheet("background-color: #FDE8E8; color: #9B1C1C; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FBD5D5;");
+            } else {
+                badge->setStyleSheet("background-color: #F3F4F6; color: #4B5563; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #E5E7EB;");
+            }
             QWidget *bw = new QWidget();
             QHBoxLayout *bl = new QHBoxLayout(bw);
             bl->setContentsMargins(4, 2, 4, 2);
@@ -158,8 +161,8 @@ void ModuleGestionMembres::populateTable()
                 actBtn->setMinimumWidth(100);
                 actBtn->setCursor(Qt::PointingHandCursor);
                 actBtn->setStyleSheet(
-                    "QPushButton { background-color: #0b1e36; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: bold; padding: 4px 14px; }"
-                    "QPushButton:hover { background-color: #1a3353; }"
+                    "QPushButton { background-color: #001F3F; color: #ffffff; border: none; border-radius: 6px; font-size: 12px; font-weight: bold; padding: 4px 14px; outline: none; }"
+                    "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
                 );
                 QString pid = QString::fromStdString(a.getId());
                 connect(actBtn, &QPushButton::clicked, this, [this, pid]{ onActionClicked(pid, "admin", "menu"); });
@@ -196,14 +199,17 @@ void ModuleGestionMembres::populateTable()
             // Statut badge
             QLabel *badge = new QLabel(statut);
             badge->setAlignment(Qt::AlignCenter);
-            QString badgeColor;
-            if (statut == "Actif") badgeColor = "background-color: #c6f6d5; color: #276749;";
-            else if (statut == "En congé") badgeColor = "background-color: #fefcbf; color: #975a16;";
-            else if (statut == "Rétrogradé") badgeColor = "background-color: #fed7d7; color: #9b2c2c;";
-            else if (statut == "Licencié") badgeColor = "background-color: #feb2b2; color: #742a2a;";
-            else if (statut == "Révoqué") badgeColor = "background-color: #e2e8f0; color: #4a5568;";
-            else badgeColor = "background-color: #e2e8f0; color: #4a5568;";
-            badge->setStyleSheet(QString("font-size: 11px; font-weight: bold; border-radius: 10px; padding: 4px 12px; %1").arg(badgeColor));
+            badge->setFixedWidth(95);
+            badge->setFixedHeight(24);
+            if (statut == "Actif") {
+                badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
+            } else if (statut == "En congé") {
+                badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
+            } else if (statut == "Rétrogradé" || statut == "Licencié") {
+                badge->setStyleSheet("background-color: #FDE8E8; color: #9B1C1C; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FBD5D5;");
+            } else {
+                badge->setStyleSheet("background-color: #F3F4F6; color: #4B5563; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #E5E7EB;");
+            }
             QWidget *bw = new QWidget();
             QHBoxLayout *bll = new QHBoxLayout(bw);
             bll->setContentsMargins(4, 2, 4, 2);
@@ -216,8 +222,8 @@ void ModuleGestionMembres::populateTable()
             actBtn->setMinimumWidth(100);
             actBtn->setCursor(Qt::PointingHandCursor);
             actBtn->setStyleSheet(
-                "QPushButton { background-color: #0b1e36; color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: bold; padding: 4px 14px; }"
-                "QPushButton:hover { background-color: #1a3353; }"
+                "QPushButton { background-color: #001F3F; color: #ffffff; border: none; border-radius: 6px; font-size: 12px; font-weight: bold; padding: 4px 14px; outline: none; }"
+                "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
             );
             QString pid = QString::fromStdString(pr.getId());
             connect(actBtn, &QPushButton::clicked, this, [this, pid]{ onActionClicked(pid, "prof", "menu"); });

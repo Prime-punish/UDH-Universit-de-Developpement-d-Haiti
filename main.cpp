@@ -31,9 +31,9 @@ int main(int argc, char *argv[])
         "QComboBox QAbstractItemView::item { background-color: #ffffff; color: #1a202c; min-height: 36px; padding: 6px 12px; font-size: 13px; border-radius: 4px; }"
         "QComboBox QAbstractItemView::item:hover { background-color: #e8ecf8; color: #14166B; }"
         "QComboBox QAbstractItemView::item:selected { background-color: #dbe4f9; color: #14166B; font-weight: bold; }"
-        "QMessageBox QPushButton, QDialogButtonBox QPushButton, QDialog QPushButton, QInputDialog QPushButton, QFileDialog QPushButton, QPushButton { background-color: #0b1e36; color: #ffffff; border-radius: 6px; padding: 7px 18px; font-weight: bold; font-size: 13px; min-width: 80px; min-height: 28px; border: none; }"
-        "QMessageBox QPushButton:hover, QDialogButtonBox QPushButton:hover, QDialog QPushButton:hover, QInputDialog QPushButton:hover, QFileDialog QPushButton:hover, QPushButton:hover { background-color: #1a3353; color: #ffffff; }"
-        "QPushButton:pressed { background-color: #061120; }"
+        "QMessageBox QPushButton, QDialogButtonBox QPushButton, QDialog QPushButton, QInputDialog QPushButton, QFileDialog QPushButton, QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 7px 18px; font-weight: bold; font-size: 13px; min-width: 80px; min-height: 28px; border: none; outline: none; }"
+        "QMessageBox QPushButton:hover, QDialogButtonBox QPushButton:hover, QDialog QPushButton:hover, QInputDialog QPushButton:hover, QFileDialog QPushButton:hover, QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
+        "QPushButton:pressed { background-color: #001226; color: #ffffff; }"
         "QPushButton:disabled { background-color: #a0aec0; color: #e2e8f0; }"
     );
 

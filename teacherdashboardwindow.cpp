@@ -348,8 +348,8 @@ QWidget* TeacherDashboardWindow::createDashboardPage()
     QPushButton *addGradeBtn = new QPushButton("➕ Attribuer une note", tableCard);
     addGradeBtn->setCursor(Qt::PointingHandCursor);
     addGradeBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; padding: 6px 14px; font-weight: bold; font-size: 12px; border: none; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 6px 14px; font-weight: bold; font-size: 12px; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(addGradeBtn, &QPushButton::clicked, [this]() {
         sidebarBtnGroup->button(3)->setChecked(true);
@@ -662,8 +662,8 @@ QWidget* TeacherDashboardWindow::createAssignGradePage()
     saveBtn->setFixedHeight(45);
     saveBtn->setCursor(Qt::PointingHandCursor);
     saveBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; font-size: 15px; border: none; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 15px; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(saveBtn, &QPushButton::clicked, this, &TeacherDashboardWindow::onSaveNoteClicked);
 
@@ -733,7 +733,7 @@ QWidget* TeacherDashboardWindow::createViewGradesPage()
     cLayout->setSpacing(15);
 
     QLabel *title = new QLabel("Liste complète des notes enregistrées");
-    title->setStyleSheet("font-size: 20px; font-weight: bold; color: #0b1e36; border: none;");
+    title->setStyleSheet("font-size: 20px; font-weight: bold; color: #001F3F; border: none;");
     cLayout->addWidget(title);
 
     viewGradesTable = new QTableWidget(card);
@@ -785,7 +785,7 @@ QWidget* TeacherDashboardWindow::createUploadPhotoPage()
     cLayout->setSpacing(18);
 
     QLabel *title = new QLabel("Uploader une photo d'examen");
-    title->setStyleSheet("font-size: 20px; font-weight: bold; color: #0b1e36; border: none;");
+    title->setStyleSheet("font-size: 20px; font-weight: bold; color: #001F3F; border: none;");
     cLayout->addWidget(title);
 
     const QString inputStyle = 
@@ -813,8 +813,8 @@ QWidget* TeacherDashboardWindow::createUploadPhotoPage()
     browseBtn->setFixedHeight(42);
     browseBtn->setCursor(Qt::PointingHandCursor);
     browseBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; padding: 0 16px; border: none; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; padding: 0 16px; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(browseBtn, &QPushButton::clicked, [this]() {
         QString file = QFileDialog::getOpenFileName(this, "Sélectionner une photo d'examen", "", "Images (*.png *.jpg *.jpeg *.pdf)");
@@ -830,8 +830,8 @@ QWidget* TeacherDashboardWindow::createUploadPhotoPage()
     uploadBtn->setFixedHeight(45);
     uploadBtn->setCursor(Qt::PointingHandCursor);
     uploadBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; font-size: 15px; border: none; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 15px; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(uploadBtn, &QPushButton::clicked, this, &TeacherDashboardWindow::onUploadPhotoClicked);
 

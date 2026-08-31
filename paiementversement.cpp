@@ -176,40 +176,49 @@ void PaiementVersement::setupEtudiantUI()
     fLayout->setSpacing(12);
 
     QLabel *title = new QLabel("💳 Payer un Versement du Semestre", formCard);
-    title->setStyleSheet("font-size: 18px; font-weight: bold; color: #0b1e36; border: none;");
+    title->setStyleSheet("font-size: 18px; font-weight: bold; color: #001F3F; border: none;");
 
     QLabel *sub = new QLabel("Effectuez le règlement de vos frais de scolarité universitaire via le simulateur sécurisé.", formCard);
     sub->setStyleSheet("color: #718096; font-size: 13px; border: none;");
 
     QGridLayout *grid = new QGridLayout();
-    grid->setHorizontalSpacing(15);
-    grid->setVerticalSpacing(10);
+    grid->setHorizontalSpacing(20);
+    grid->setVerticalSpacing(14);
 
-    grid->addWidget(new QLabel("Montant à verser (HTG) :", formCard), 0, 0);
+    QLabel *lblAmount = new QLabel("💰 Montant à payer (HTG) :", formCard);
+    lblAmount->setStyleSheet("font-size: 13px; font-weight: bold; color: #1a202c; background: transparent; border: none;");
+    grid->addWidget(lblAmount, 0, 0);
+
     amountEdit = new QLineEdit(formCard);
     amountEdit->setPlaceholderText("Ex: 25000");
     amountEdit->setText("25000");
     amountEdit->setFixedHeight(38);
-    amountEdit->setStyleSheet("QLineEdit { background-color: #f8fafc; border: 1.5px solid #cbd5e0; border-radius: 6px; padding: 0 10px; font-size: 14px; font-weight: bold; color: #1a202c; }");
+    amountEdit->setStyleSheet("QLineEdit { background-color: #f8fafc; border: 1.5px solid #cbd5e0; border-radius: 6px; padding: 0 12px; font-size: 14px; font-weight: bold; color: #1a202c; }");
     grid->addWidget(amountEdit, 0, 1);
 
-    grid->addWidget(new QLabel("Méthode de paiement :", formCard), 1, 0);
+    QLabel *lblMethod = new QLabel("💳 Méthode de paiement :", formCard);
+    lblMethod->setStyleSheet("font-size: 13px; font-weight: bold; color: #1a202c; background: transparent; border: none;");
+    grid->addWidget(lblMethod, 1, 0);
+
     methodCombo = new QComboBox(formCard);
     methodCombo->addItems({"MonCash (Digicel)", "Carte Bancaire (Visa / Mastercard)", "Natcash", "Virement Bancaire (BUH / Sogebank)"});
     methodCombo->setFixedHeight(38);
-    methodCombo->setStyleSheet("QComboBox { background-color: #f8fafc; border: 1.5px solid #cbd5e0; border-radius: 6px; padding-left: 10px; font-weight: bold; font-size: 13px; }");
+    methodCombo->setStyleSheet("QComboBox { background-color: #f8fafc; border: 1.5px solid #cbd5e0; border-radius: 6px; padding-left: 10px; font-weight: bold; font-size: 13px; color: #1a202c; }");
     grid->addWidget(methodCombo, 1, 1);
 
-    grid->addWidget(new QLabel("Numéro de référence / Tél :", formCard), 2, 0);
+    QLabel *lblRef = new QLabel("🔖 Référence de transaction / N° reçu :", formCard);
+    lblRef->setStyleSheet("font-size: 13px; font-weight: bold; color: #1a202c; background: transparent; border: none;");
+    grid->addWidget(lblRef, 2, 0);
+
     refTransactionEdit = new QLineEdit(formCard);
-    refTransactionEdit->setPlaceholderText("Ex: Ref transaction MonCash #8392019 ou 4 chiffres carte");
+    refTransactionEdit->setPlaceholderText("Ex: N° transaction MonCash #8392019 ou référence bancaire");
     refTransactionEdit->setFixedHeight(38);
-    refTransactionEdit->setStyleSheet("QLineEdit { background-color: #f8fafc; border: 1.5px solid #cbd5e0; border-radius: 6px; padding: 0 10px; font-size: 13px; }");
+    refTransactionEdit->setStyleSheet("QLineEdit { background-color: #f8fafc; border: 1.5px solid #cbd5e0; border-radius: 6px; padding: 0 12px; font-size: 13px; color: #1a202c; }");
     grid->addWidget(refTransactionEdit, 2, 1);
 
     fLayout->addWidget(title);
     fLayout->addWidget(sub);
-    fLayout->addSpacing(5);
+    fLayout->addSpacing(8);
     fLayout->addLayout(grid);
 
     QHBoxLayout *btnRow = new QHBoxLayout();
@@ -217,10 +226,10 @@ void PaiementVersement::setupEtudiantUI()
 
     QPushButton *payBtn = new QPushButton("✅ Confirmer le versement", formCard);
     payBtn->setFixedHeight(42);
-    payBtn->setFixedWidth(220);
+    payBtn->setFixedWidth(240);
     payBtn->setCursor(Qt::PointingHandCursor);
-    payBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; }"
-                          "QPushButton:hover { background-color: #1a3353; }");
+    payBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; outline: none; }"
+                          "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
     connect(payBtn, &QPushButton::clicked, this, &PaiementVersement::onConfirmPaymentClicked);
     btnRow->addWidget(payBtn);
 
@@ -476,14 +485,14 @@ void PaiementVersement::refreshData()
                 QLabel *badge = new QLabel(QString::fromStdString(it->statut));
                 badge->setAlignment(Qt::AlignCenter);
                 badge->setFixedWidth(95);
-                badge->setFixedHeight(22);
+                badge->setFixedHeight(24);
                 if (it->statut == "Validé") {
-                    badge->setStyleSheet("background-color: #C6F6D5; color: #22543D; font-weight: bold; border-radius: 11px; font-size: 11px;");
+                    badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
                     totalValide += it->montant;
                 } else if (it->statut == "En attente") {
-                    badge->setStyleSheet("background-color: #FEEBC8; color: #7B341E; font-weight: bold; border-radius: 11px; font-size: 11px;");
+                    badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
                 } else {
-                    badge->setStyleSheet("background-color: #FED7D7; color: #742A2A; font-weight: bold; border-radius: 11px; font-size: 11px;");
+                    badge->setStyleSheet("background-color: #FDE8E8; color: #9B1C1C; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FBD5D5;");
                 }
                 bLayout->addWidget(badge);
                 studentHistoryTable->setCellWidget(row, 3, badgeWidget);
@@ -546,14 +555,14 @@ void PaiementVersement::refreshData()
             bLayout->setAlignment(Qt::AlignCenter);
             QLabel *badge = new QLabel(QString::fromStdString(it->statut));
             badge->setAlignment(Qt::AlignCenter);
-            badge->setFixedWidth(90);
-            badge->setFixedHeight(22);
+            badge->setFixedWidth(95);
+            badge->setFixedHeight(24);
             if (it->statut == "Validé") {
-                badge->setStyleSheet("background-color: #C6F6D5; color: #22543D; font-weight: bold; border-radius: 11px; font-size: 11px;");
+                badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
             } else if (it->statut == "En attente") {
-                badge->setStyleSheet("background-color: #FEEBC8; color: #7B341E; font-weight: bold; border-radius: 11px; font-size: 11px;");
+                badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
             } else {
-                badge->setStyleSheet("background-color: #FED7D7; color: #742A2A; font-weight: bold; border-radius: 11px; font-size: 11px;");
+                badge->setStyleSheet("background-color: #FDE8E8; color: #9B1C1C; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FBD5D5;");
             }
             bLayout->addWidget(badge);
             adminVersementsTable->setCellWidget(row, 5, badgeWidget);
@@ -567,8 +576,8 @@ void PaiementVersement::refreshData()
             if (it->statut == "En attente") {
                 QPushButton *okBtn = new QPushButton("✅ Confirmer");
                 okBtn->setCursor(Qt::PointingHandCursor);
-                okBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 4px; padding: 4px 8px; font-weight: bold; font-size: 11px; border: none; }"
-                                     "QPushButton:hover { background-color: #1a3353; }");
+                okBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 4px; padding: 4px 10px; font-weight: bold; font-size: 11px; border: none; outline: none; }"
+                                     "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
                 QString stId = QString::fromStdString(it->idEtudiant);
                 QString dt = QString::fromStdString(it->date);
                 connect(okBtn, &QPushButton::clicked, [this, stId, dt]() { onValidatePaymentClicked(stId, dt); });
@@ -576,13 +585,16 @@ void PaiementVersement::refreshData()
 
                 QPushButton *rejBtn = new QPushButton("❌ Rejeter");
                 rejBtn->setCursor(Qt::PointingHandCursor);
-                rejBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 4px; padding: 4px 8px; font-weight: bold; font-size: 11px; border: none; }"
-                                      "QPushButton:hover { background-color: #1a3353; }");
+                rejBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 4px; padding: 4px 10px; font-weight: bold; font-size: 11px; border: none; outline: none; }"
+                                      "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
                 connect(rejBtn, &QPushButton::clicked, [this, stId, dt]() { onRejectPaymentClicked(stId, dt); });
                 aLayout->addWidget(rejBtn);
             } else {
                 QLabel *doneLbl = new QLabel("Traité");
-                doneLbl->setStyleSheet("color: #a0aec0; font-size: 11px; font-style: italic;");
+                doneLbl->setAlignment(Qt::AlignCenter);
+                doneLbl->setFixedWidth(80);
+                doneLbl->setFixedHeight(24);
+                doneLbl->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
                 aLayout->addWidget(doneLbl);
             }
             adminVersementsTable->setCellWidget(row, 6, actWidget);

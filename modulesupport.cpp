@@ -431,14 +431,12 @@ void ModuleSupport::refreshData()
                 QLabel *badge = new QLabel(QString::fromStdString(it->statut));
                 badge->setAlignment(Qt::AlignCenter);
                 badge->setFixedWidth(100);
-                badge->setFixedHeight(24);
-
                 if (it->statut == "Résolu") {
-                    badge->setStyleSheet("background-color: #C6F6D5; color: #22543D; font-weight: bold; border-radius: 12px; font-size: 11px;");
+                    badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
                 } else if (it->statut == "En cours") {
-                    badge->setStyleSheet("background-color: #FEEBC8; color: #7B341E; font-weight: bold; border-radius: 12px; font-size: 11px;");
+                    badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
                 } else {
-                    badge->setStyleSheet("background-color: #FED7D7; color: #742A2A; font-weight: bold; border-radius: 12px; font-size: 11px;");
+                    badge->setStyleSheet("background-color: #FDE8E8; color: #9B1C1C; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FBD5D5;");
                 }
                 bLayout->addWidget(badge);
                 myTicketsTable->setCellWidget(row, 3, badgeWidget);
@@ -446,8 +444,8 @@ void ModuleSupport::refreshData()
                 // View message action
                 QPushButton *viewBtn = new QPushButton("👁️ Voir");
                 viewBtn->setCursor(Qt::PointingHandCursor);
-                viewBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 4px; padding: 4px 8px; font-weight: bold; border: none; }"
-                                       "QPushButton:hover { background-color: #1a3353; }");
+                viewBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 4px; padding: 4px 10px; font-weight: bold; border: none; outline: none; }"
+                                       "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
                 QString tId = QString::fromStdString(it->id);
                 connect(viewBtn, &QPushButton::clicked, [this, tId]() { onViewMessageClicked(tId); });
                 myTicketsTable->setCellWidget(row, 4, viewBtn);
@@ -504,11 +502,11 @@ void ModuleSupport::refreshData()
             badge->setFixedHeight(24);
 
             if (it->statut == "Résolu") {
-                badge->setStyleSheet("background-color: #C6F6D5; color: #22543D; font-weight: bold; border-radius: 12px; font-size: 11px;");
+                badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
             } else if (it->statut == "En cours") {
-                badge->setStyleSheet("background-color: #FEEBC8; color: #7B341E; font-weight: bold; border-radius: 12px; font-size: 11px;");
+                badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
             } else {
-                badge->setStyleSheet("background-color: #FED7D7; color: #742A2A; font-weight: bold; border-radius: 12px; font-size: 11px;");
+                badge->setStyleSheet("background-color: #FDE8E8; color: #9B1C1C; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FBD5D5;");
             }
             bLayout->addWidget(badge);
             adminTicketsTable->setCellWidget(row, 4, badgeWidget);
@@ -516,8 +514,8 @@ void ModuleSupport::refreshData()
             // View action button
             QPushButton *viewBtn = new QPushButton("👁️ Consulter");
             viewBtn->setCursor(Qt::PointingHandCursor);
-            viewBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 4px; padding: 4px 8px; font-weight: bold; font-size: 11px; border: none; }"
-                                   "QPushButton:hover { background-color: #1a3353; }");
+            viewBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 4px; padding: 4px 10px; font-weight: bold; font-size: 11px; border: none; outline: none; }"
+                                   "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
             QString tId = QString::fromStdString(it->id);
             connect(viewBtn, &QPushButton::clicked, [this, tId]() { onViewMessageClicked(tId); });
             adminTicketsTable->setCellWidget(row, 5, viewBtn);
@@ -525,8 +523,8 @@ void ModuleSupport::refreshData()
             // Change status button
             QPushButton *changeStatusBtn = new QPushButton("🔄 Modifier statut");
             changeStatusBtn->setCursor(Qt::PointingHandCursor);
-            changeStatusBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 4px; padding: 4px 8px; font-weight: bold; font-size: 11px; border: none; }"
-                                          "QPushButton:hover { background-color: #1a3353; }");
+            changeStatusBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 4px; padding: 4px 10px; font-weight: bold; font-size: 11px; border: none; outline: none; }"
+                                          "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
             QString curSt = QString::fromStdString(it->statut);
             connect(changeStatusBtn, &QPushButton::clicked, [this, tId, curSt]() { onChangeStatusClicked(tId, curSt); });
             adminTicketsTable->setCellWidget(row, 6, changeStatusBtn);
@@ -581,7 +579,8 @@ void ModuleSupport::onViewMessageClicked(const QString &ticketId)
 
             QPushButton *closeBtn = new QPushButton("Fermer", &dlg);
             closeBtn->setFixedHeight(36);
-            closeBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; }");
+            closeBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; border: none; outline: none; }"
+                                   "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
             connect(closeBtn, &QPushButton::clicked, &dlg, &QDialog::accept);
 
             l->addWidget(tLbl);

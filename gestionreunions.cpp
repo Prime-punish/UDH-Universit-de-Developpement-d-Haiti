@@ -419,7 +419,8 @@ void GestionReunions::onViewDetailsClicked(const QString &idReunion)
             dEdit->setStyleSheet("QTextEdit { background-color: #f8fafc; color: #2d3748; border: 1px solid #cbd5e0; border-radius: 6px; padding: 6px; font-size: 13px; }");
 
             QPushButton *okBtn = new QPushButton("Fermer", &dlg);
-            okBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; padding: 6px; font-weight: bold; }");
+            okBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 6px; font-weight: bold; border: none; outline: none; }"
+                                 "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
             connect(okBtn, &QPushButton::clicked, &dlg, &QDialog::accept);
 
             l->addWidget(tLbl);
@@ -605,7 +606,8 @@ void ReunionsAdminView::onViewDetailsClicked(const QString &idReunion)
 
             QPushButton *okBtn = new QPushButton("Fermer", &dlg);
             okBtn->setFixedHeight(36);
-            okBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; }");
+            okBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; border: none; outline: none; }"
+                                 "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
             connect(okBtn, &QPushButton::clicked, &dlg, &QDialog::accept);
 
             l->addWidget(tLbl);

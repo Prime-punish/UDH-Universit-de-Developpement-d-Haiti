@@ -148,8 +148,8 @@ void RegistrationDialog::setupUI()
     btnId->setFixedHeight(36);
     btnId->setCursor(Qt::PointingHandCursor);
     btnId->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     idPathLabel = new QLabel("Aucun fichier sélectionné");
     idPathLabel->setStyleSheet("font-size: 12px; color: #718096;");
@@ -174,8 +174,8 @@ void RegistrationDialog::setupUI()
     btnPhoto->setFixedHeight(36);
     btnPhoto->setCursor(Qt::PointingHandCursor);
     btnPhoto->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     photoPathLabel = new QLabel("Aucune photo sélectionnée");
     photoPathLabel->setStyleSheet("font-size: 12px; color: #718096;");
@@ -211,8 +211,8 @@ void RegistrationDialog::setupUI()
     connect(paidCheckBox, &QCheckBox::toggled, [this](bool checked) {
         browsePaymentBtn->setEnabled(checked);
         browsePaymentBtn->setStyleSheet(
-            checked ? "QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; }"
-                      "QPushButton:hover { background-color: #1a3353; }"
+            checked ? "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; outline: none; }"
+                      "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
                     : "QPushButton { background-color: #edf2f7; color: #a0aec0; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; }"
         );
     });
@@ -233,15 +233,15 @@ void RegistrationDialog::setupUI()
     QPushButton *cancelBtn = new QPushButton("Annuler");
     cancelBtn->setFixedHeight(42);
     cancelBtn->setCursor(Qt::PointingHandCursor);
-    cancelBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; font-size: 13px; border: none; padding: 0 20px; }"
-                             "QPushButton:hover { background-color: #1a3353; }");
+    cancelBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 13px; border: none; padding: 0 20px; outline: none; }"
+                             "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
     connect(cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
 
     QPushButton *submitBtn = new QPushButton("✓ Valider mon Inscription");
     submitBtn->setFixedHeight(42);
     submitBtn->setCursor(Qt::PointingHandCursor);
-    submitBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; }"
-                             "QPushButton:hover { background-color: #1a3353; }");
+    submitBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; outline: none; }"
+                             "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
     connect(submitBtn, &QPushButton::clicked, this, &RegistrationDialog::onValidate);
 
     btnLayout->addStretch();

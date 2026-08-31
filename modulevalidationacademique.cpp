@@ -80,8 +80,8 @@ void ModuleValidationAcademique::setupUI()
     addBtn->setFixedWidth(240);
     addBtn->setCursor(Qt::PointingHandCursor);
     addBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: bold; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border: none; border-radius: 8px; font-size: 13px; font-weight: bold; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(addBtn, &QPushButton::clicked, this, &ModuleValidationAcademique::addDecision);
     formLayout->addWidget(addBtn, 0, Qt::AlignRight);
@@ -108,7 +108,9 @@ void ModuleValidationAcademique::setupUI()
         "QTableWidget::item:alternate { background-color: #f9fafb; }"
     );
     QGraphicsDropShadowEffect *tblShadow = new QGraphicsDropShadowEffect();
-    tblShadow->setBlurRadius(18); tblShadow->setColor(QColor(0,0,0,30)); tblShadow->setOffset(0,3);
+    tblShadow->setBlurRadius(16);
+    tblShadow->setColor(QColor(0, 0, 0, 15));
+    tblShadow->setOffset(0, 4);
     table->setGraphicsEffect(tblShadow);
 
     mainLayout->addWidget(table, 1);
@@ -139,11 +141,15 @@ void ModuleValidationAcademique::loadDecisions()
         QString statut = parts[4];
         QLabel *badge = new QLabel(statut);
         badge->setAlignment(Qt::AlignCenter);
-        QString bc;
-        if (statut == "Validé") bc = "background-color: #c6f6d5; color: #276749;";
-        else if (statut == "En attente") bc = "background-color: #fefcbf; color: #975a16;";
-        else bc = "background-color: #fed7d7; color: #9b2c2c;";
-        badge->setStyleSheet(QString("font-size: 11px; font-weight: bold; border-radius: 10px; padding: 4px 12px; %1").arg(bc));
+        badge->setFixedWidth(95);
+        badge->setFixedHeight(24);
+        if (statut == "Validé") {
+            badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
+        } else if (statut == "En attente") {
+            badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
+        } else {
+            badge->setStyleSheet("background-color: #FDE8E8; color: #9B1C1C; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FBD5D5;");
+        }
         QWidget *bw = new QWidget();
         QHBoxLayout *bl = new QHBoxLayout(bw);
         bl->setContentsMargins(4, 2, 4, 2);

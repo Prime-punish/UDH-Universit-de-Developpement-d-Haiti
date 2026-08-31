@@ -182,8 +182,8 @@ void FicheDetailInscription::setupUI()
     closeBtn->setFixedWidth(120);
     closeBtn->setCursor(Qt::PointingHandCursor);
     closeBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(closeBtn, &QPushButton::clicked, this, &QDialog::reject);
 
@@ -191,8 +191,8 @@ void FicheDetailInscription::setupUI()
     rejectBtn->setFixedHeight(44);
     rejectBtn->setCursor(Qt::PointingHandCursor);
     rejectBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(rejectBtn, &QPushButton::clicked, this, &FicheDetailInscription::onRejectClicked);
 
@@ -200,8 +200,8 @@ void FicheDetailInscription::setupUI()
     approveBtn->setFixedHeight(44);
     approveBtn->setCursor(Qt::PointingHandCursor);
     approveBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(approveBtn, &QPushButton::clicked, this, &FicheDetailInscription::onApproveClicked);
 

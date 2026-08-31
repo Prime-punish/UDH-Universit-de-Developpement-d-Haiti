@@ -552,8 +552,8 @@ QWidget* AdminDashboardWindow::createSecretaryNotesTransferPage()
     transferAllBtn->setFixedHeight(38);
     transferAllBtn->setCursor(Qt::PointingHandCursor);
     transferAllBtn->setStyleSheet(
-        "QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; font-size: 13px; padding: 0 14px; border: none; }"
-        "QPushButton:hover { background-color: #1a3353; }"
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 13px; padding: 0 14px; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
     );
     connect(transferAllBtn, &QPushButton::clicked, this, [this]() {
         std::vector<Professeur> currentProfs = chargerProfesseurs();
@@ -585,7 +585,6 @@ QWidget* AdminDashboardWindow::createSecretaryNotesTransferPage()
     headerRow->addWidget(transferAllBtn);
     tcLayout->addLayout(headerRow);
 
-    // Table
     secNotesTable = new QTableWidget(tableCard);
     secNotesTable->setColumnCount(7);
     secNotesTable->setHorizontalHeaderLabels({"Professeur", "Faculté", "ID Étudiant", "Matière", "Note", "Statut", "Action"});
@@ -691,9 +690,9 @@ void AdminDashboardWindow::refreshSecretaryNotesTable()
         badge->setFixedHeight(24);
 
         if (data.statut == "Transférée") {
-            badge->setStyleSheet("background-color: #e6f4ea; color: #137333; font-weight: bold; border-radius: 12px; font-size: 11px;");
+            badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
         } else {
-            badge->setStyleSheet("background-color: #fef7e0; color: #b06000; font-weight: bold; border-radius: 12px; font-size: 11px;");
+            badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
         }
         bLayout->addWidget(badge);
         secNotesTable->setCellWidget(r, 5, badgeWidget);
@@ -708,8 +707,8 @@ void AdminDashboardWindow::refreshSecretaryNotesTable()
             QPushButton *btn = new QPushButton("Transférer");
             btn->setCursor(Qt::PointingHandCursor);
             btn->setStyleSheet(
-                "QPushButton { background-color: #0b1e36; color: white; border-radius: 4px; padding: 4px 10px; font-weight: bold; font-size: 11px; border: none; }"
-                "QPushButton:hover { background-color: #1a3353; }"
+                "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 4px; padding: 4px 10px; font-weight: bold; font-size: 11px; border: none; outline: none; }"
+                "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
             );
 
             std::string pId = data.profId;

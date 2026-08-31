@@ -148,19 +148,32 @@ void ValidationInscriptions::populateTable()
             requestsTable->setItem(r, 2, new QTableWidgetItem(facStr));
             requestsTable->setItem(r, 3, new QTableWidgetItem(dateStr));
 
-            QString badgeText = st == "Approuvé" ? "✅ Approuvé" : (st == "Rejeté" ? "❌ Rejeté" : "⏳ En attente");
-            QString badgeColor = st == "Approuvé" ? "#27ae60" : (st == "Rejeté" ? "#e74c3c" : "#e67e22");
+            // Badge Statut
+            QWidget *badgeWidget = new QWidget();
+            QHBoxLayout *bLayout = new QHBoxLayout(badgeWidget);
+            bLayout->setContentsMargins(4, 2, 4, 2);
+            bLayout->setAlignment(Qt::AlignCenter);
 
-            QTableWidgetItem *stItem = new QTableWidgetItem(badgeText);
-            stItem->setFont(QFont("Segoe UI", 10, QFont::Bold));
-            stItem->setForeground(QColor(badgeColor));
-            requestsTable->setItem(r, 4, stItem);
+            QLabel *badge = new QLabel(st == "Approuvé" ? "Approuvé" : (st == "Rejeté" ? "Rejeté" : "En attente"));
+            badge->setAlignment(Qt::AlignCenter);
+            badge->setFixedWidth(95);
+            badge->setFixedHeight(24);
+
+            if (st == "Approuvé") {
+                badge->setStyleSheet("background-color: #DEF7EC; color: #03543F; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #BCF0DA;");
+            } else if (st == "Rejeté") {
+                badge->setStyleSheet("background-color: #FDE8E8; color: #9B1C1C; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FBD5D5;");
+            } else {
+                badge->setStyleSheet("background-color: #FEF3C7; color: #92400E; font-weight: bold; border-radius: 12px; font-size: 11px; border: 1px solid #FDE68A;");
+            }
+            bLayout->addWidget(badge);
+            requestsTable->setCellWidget(r, 4, badgeWidget);
 
             QPushButton *viewBtn = new QPushButton("👁️ Voir le dossier");
             viewBtn->setCursor(Qt::PointingHandCursor);
             viewBtn->setStyleSheet(
-                "QPushButton { background-color: #0b1e36; color: white; border-radius: 4px; padding: 5px 12px; font-weight: bold; border: none; }"
-                "QPushButton:hover { background-color: #1a3353; }"
+                "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 4px; padding: 5px 12px; font-weight: bold; border: none; outline: none; }"
+                "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
             );
 
             int origIdx = (int)i;

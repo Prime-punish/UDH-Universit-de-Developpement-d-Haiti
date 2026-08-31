@@ -397,10 +397,13 @@ void ParametresCompteBase::refreshData()
         QString stText = currentEtudiant->estEnPause() ? "En pause" : (currentEtudiant->estActif() ? "Actif" : "Inactif");
         if (lblStatutBadge) {
             lblStatutBadge->setText(stText);
-            lblStatutBadge->setStyleSheet(QString("font-size: 12px; font-weight: bold; color: %1; background: %2; padding: 4px 10px; border-radius: 6px; border: 1px solid %3;")
-                                          .arg(currentEtudiant->estActif() && !currentEtudiant->estEnPause() ? "#27ae60" : "#e67e22")
-                                          .arg(currentEtudiant->estActif() && !currentEtudiant->estEnPause() ? "#e8f8f0" : "#fefcbf")
-                                          .arg(currentEtudiant->estActif() && !currentEtudiant->estEnPause() ? "#c6f6d5" : "#faf089"));
+            if (currentEtudiant->estActif() && !currentEtudiant->estEnPause()) {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #03543F; background: #DEF7EC; padding: 4px 10px; border-radius: 12px; border: 1px solid #BCF0DA;");
+            } else if (currentEtudiant->estEnPause()) {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #92400E; background: #FEF3C7; padding: 4px 10px; border-radius: 12px; border: 1px solid #FDE68A;");
+            } else {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #9B1C1C; background: #FDE8E8; padding: 4px 10px; border-radius: 12px; border: 1px solid #FBD5D5;");
+            }
         }
 
         if (editNom) editNom->setText(QString::fromStdString(currentEtudiant->getNom()));
@@ -428,7 +431,13 @@ void ParametresCompteBase::refreshData()
         QString stText = QString::fromStdString(currentProf->getStatutCompte());
         if (lblStatutBadge) {
             lblStatutBadge->setText(stText);
-            lblStatutBadge->setStyleSheet("font-size: 12px; font-weight: bold; color: #27ae60; background: #e8f8f0; padding: 4px 10px; border-radius: 6px; border: 1px solid #c6f6d5;");
+            if (stText == "Actif") {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #03543F; background: #DEF7EC; padding: 4px 10px; border-radius: 12px; border: 1px solid #BCF0DA;");
+            } else if (stText == "En congé") {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #92400E; background: #FEF3C7; padding: 4px 10px; border-radius: 12px; border: 1px solid #FDE68A;");
+            } else {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #9B1C1C; background: #FDE8E8; padding: 4px 10px; border-radius: 12px; border: 1px solid #FBD5D5;");
+            }
         }
 
         if (editNom) editNom->setText(QString::fromStdString(currentProf->getNom()));
@@ -444,7 +453,7 @@ void ParametresCompteBase::refreshData()
             if (i > 0) mats += ", ";
             mats += QString::fromStdString(currentProf->getMatieres()[i]);
         }
-        if (lblMatieres) lblMatieres->setText(mats.isEmpty() ? "Aucune" : mats);
+        if (lblMatieres) lblMatieres->setText(mats.isEmpty() ? "Aucune matière assignée" : mats);
 
         if (lblSalaireStatut) {
             if (currentProf->getEstPaye()) {
@@ -464,7 +473,13 @@ void ParametresCompteBase::refreshData()
         QString stText = QString::fromStdString(currentAdmin->getStatutCompte());
         if (lblStatutBadge) {
             lblStatutBadge->setText(stText);
-            lblStatutBadge->setStyleSheet("font-size: 12px; font-weight: bold; color: #27ae60; background: #e8f8f0; padding: 4px 10px; border-radius: 6px; border: 1px solid #c6f6d5;");
+            if (stText == "Actif") {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #03543F; background: #DEF7EC; padding: 4px 10px; border-radius: 12px; border: 1px solid #BCF0DA;");
+            } else if (stText == "En congé") {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #92400E; background: #FEF3C7; padding: 4px 10px; border-radius: 12px; border: 1px solid #FDE68A;");
+            } else {
+                lblStatutBadge->setStyleSheet("font-size: 11px; font-weight: bold; color: #9B1C1C; background: #FDE8E8; padding: 4px 10px; border-radius: 12px; border: 1px solid #FBD5D5;");
+            }
         }
 
         if (editNom) editNom->setText(QString::fromStdString(currentAdmin->getNom()));

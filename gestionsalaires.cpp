@@ -546,8 +546,8 @@ void GestionSalaires::onViewJournalTresorerieClicked()
     QPushButton *closeBtn = new QPushButton("Fermer", &dlg);
     closeBtn->setFixedHeight(36);
     closeBtn->setFixedWidth(120);
-    closeBtn->setStyleSheet("QPushButton { background-color: #0b1e36; color: white; border-radius: 6px; font-weight: bold; }"
-                           "QPushButton:hover { background-color: #1a3353; }");
+    closeBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; border: none; outline: none; }"
+                           "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
     connect(closeBtn, &QPushButton::clicked, &dlg, &QDialog::accept);
     btnRow->addWidget(closeBtn);
     layout->addLayout(btnRow);
