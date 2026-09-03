@@ -15,6 +15,8 @@
 #include <QPixmap>
 #include <QFileInfo>
 #include <QScrollArea>
+#include <QScreen>
+#include <QGuiApplication>
 
 RegistrationDialog::RegistrationDialog(QWidget *parent)
     : QDialog(parent)
@@ -26,8 +28,17 @@ void RegistrationDialog::setupUI()
 {
     setWindowTitle("Finalisation de l'Inscription — UDH");
     setWindowIcon(QIcon(":/resources/logo.png"));
-    setMinimumSize(580, 550);
-    resize(640, 720);
+    setMinimumSize(520, 400);
+
+    QScreen *primaryScreen = QGuiApplication::primaryScreen();
+    if (primaryScreen) {
+        QRect avail = primaryScreen->availableGeometry();
+        int targetW = qMin(640, avail.width() - 40);
+        int targetH = qMin(580, avail.height() - 80);
+        resize(targetW, targetH);
+    } else {
+        resize(620, 560);
+    }
 
     setStyleSheet(
         "QDialog { background-color: #f8fafc; font-family: 'Segoe UI', sans-serif; }"
@@ -42,6 +53,7 @@ void RegistrationDialog::setupUI()
 
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
     rootLayout->setContentsMargins(0, 0, 0, 0);
+    rootLayout->setSpacing(0);
 
     // QScrollArea for flexible scrolling
     QScrollArea *scrollArea = new QScrollArea(this);
@@ -51,28 +63,28 @@ void RegistrationDialog::setupUI()
     QWidget *scrollContent = new QWidget();
     scrollContent->setStyleSheet("background-color: #f8fafc;");
     QVBoxLayout *mainLayout = new QVBoxLayout(scrollContent);
-    mainLayout->setContentsMargins(25, 20, 25, 20);
-    mainLayout->setSpacing(16);
+    mainLayout->setContentsMargins(22, 16, 22, 16);
+    mainLayout->setSpacing(14);
 
     // Header Banner
     QWidget *header = new QWidget();
     header->setStyleSheet("background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0b1e36, stop:1 #1a365d); border-radius: 10px; color: white;");
     QHBoxLayout *hLayout = new QHBoxLayout(header);
-    hLayout->setContentsMargins(18, 14, 18, 14);
-    hLayout->setSpacing(15);
+    hLayout->setContentsMargins(16, 12, 16, 12);
+    hLayout->setSpacing(14);
 
     QLabel *logo = new QLabel();
     QPixmap pix(":/resources/logo.png");
     if (!pix.isNull()) {
-        logo->setPixmap(pix.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        logo->setPixmap(pix.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
     logo->setStyleSheet("background: transparent;");
 
     QVBoxLayout *titleLayout = new QVBoxLayout();
     QLabel *t1 = new QLabel("Dossier d'Inscription Universitaire");
-    t1->setStyleSheet("font-size: 17px; font-weight: bold; color: #d4af37; background: transparent;");
+    t1->setStyleSheet("font-size: 16px; font-weight: bold; color: #d4af37; background: transparent;");
     QLabel *t2 = new QLabel("Complétez vos informations pour débloquer votre accès étudiant");
-    t2->setStyleSheet("font-size: 12px; color: #cbd5e0; background: transparent;");
+    t2->setStyleSheet("font-size: 11px; color: #cbd5e0; background: transparent;");
     titleLayout->addWidget(t1);
     titleLayout->addWidget(t2);
 
@@ -83,24 +95,24 @@ void RegistrationDialog::setupUI()
     // Group 1: Emergency Contact
     QGroupBox *contactGroup = new QGroupBox("🚨 Personne de Référence / Contact d'Urgence", scrollContent);
     QGridLayout *g1 = new QGridLayout(contactGroup);
-    g1->setContentsMargins(15, 18, 15, 15);
-    g1->setVerticalSpacing(12);
-    g1->setHorizontalSpacing(15);
+    g1->setContentsMargins(14, 16, 14, 14);
+    g1->setVerticalSpacing(10);
+    g1->setHorizontalSpacing(14);
 
     QLabel *lblNom = new QLabel("Nom du proche :");
     nomProcheEdit = new QLineEdit();
     nomProcheEdit->setPlaceholderText("Ex: Dupont");
-    nomProcheEdit->setFixedHeight(36);
+    nomProcheEdit->setFixedHeight(34);
 
     QLabel *lblPrenom = new QLabel("Prénom du proche :");
     prenomProcheEdit = new QLineEdit();
     prenomProcheEdit->setPlaceholderText("Ex: Jean");
-    prenomProcheEdit->setFixedHeight(36);
+    prenomProcheEdit->setFixedHeight(34);
 
     QLabel *lblTel = new QLabel("Numéro de téléphone :");
     telProcheEdit = new QLineEdit();
     telProcheEdit->setPlaceholderText("Ex: +509 3123-4567");
-    telProcheEdit->setFixedHeight(36);
+    telProcheEdit->setFixedHeight(34);
 
     g1->addWidget(lblNom, 0, 0);
     g1->addWidget(nomProcheEdit, 0, 1);
@@ -113,12 +125,12 @@ void RegistrationDialog::setupUI()
     // Group 2: Faculty Selection
     QGroupBox *facGroup = new QGroupBox("🏛️ Faculté d'Études", scrollContent);
     QVBoxLayout *g2 = new QVBoxLayout(facGroup);
-    g2->setContentsMargins(15, 18, 15, 15);
+    g2->setContentsMargins(14, 16, 14, 14);
     g2->setSpacing(8);
 
     QLabel *lblFac = new QLabel("Sélectionnez votre filière :");
     faculteCombo = new QComboBox();
-    faculteCombo->setFixedHeight(38);
+    faculteCombo->setFixedHeight(36);
     faculteCombo->addItems({
         "Genie civil",
         "Genie informatique",
@@ -134,18 +146,18 @@ void RegistrationDialog::setupUI()
     // Group 3: Documents
     QGroupBox *docGroup = new QGroupBox("📁 Pièces Justificatives", scrollContent);
     QVBoxLayout *g3 = new QVBoxLayout(docGroup);
-    g3->setContentsMargins(15, 18, 15, 15);
-    g3->setSpacing(14);
+    g3->setContentsMargins(14, 16, 14, 14);
+    g3->setSpacing(12);
 
     // Document 1: ID
     QVBoxLayout *idBlock = new QVBoxLayout();
-    idBlock->setSpacing(6);
+    idBlock->setSpacing(5);
     QLabel *lblId = new QLabel("Pièce d'Identité (CIN / NIF / Passeport) :");
     lblId->setStyleSheet("font-weight: 600; color: #2d3748;");
 
     QHBoxLayout *idRow = new QHBoxLayout();
     QPushButton *btnId = new QPushButton("📁 Parcourir...");
-    btnId->setFixedHeight(36);
+    btnId->setFixedHeight(34);
     btnId->setCursor(Qt::PointingHandCursor);
     btnId->setStyleSheet(
         "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; outline: none; }"
@@ -165,13 +177,13 @@ void RegistrationDialog::setupUI()
 
     // Document 2: Photo
     QVBoxLayout *photoBlock = new QVBoxLayout();
-    photoBlock->setSpacing(6);
+    photoBlock->setSpacing(5);
     QLabel *lblPhoto = new QLabel("Photo d'Identité récente :");
     lblPhoto->setStyleSheet("font-weight: 600; color: #2d3748;");
 
     QHBoxLayout *photoRow = new QHBoxLayout();
     QPushButton *btnPhoto = new QPushButton("📷 Parcourir...");
-    btnPhoto->setFixedHeight(36);
+    btnPhoto->setFixedHeight(34);
     btnPhoto->setCursor(Qt::PointingHandCursor);
     btnPhoto->setStyleSheet(
         "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; outline: none; }"
@@ -191,66 +203,78 @@ void RegistrationDialog::setupUI()
 
     // Document 3: Payment Proof
     QVBoxLayout *payBlock = new QVBoxLayout();
-    payBlock->setSpacing(6);
-
-    paidCheckBox = new QCheckBox("Frais d'inscription réglés (preuve de paiement)");
-    paidCheckBox->setCursor(Qt::PointingHandCursor);
-    paidCheckBox->setStyleSheet("QCheckBox { color: #1a202c; font-weight: bold; font-size: 13px; }");
+    payBlock->setSpacing(5);
+    QLabel *lblPayment = new QLabel("Preuve de Paiement / Reçu des frais (Photo du reçu, capture MonCash) :");
+    lblPayment->setStyleSheet("font-weight: 600; color: #2d3748;");
 
     QHBoxLayout *payRow = new QHBoxLayout();
-    browsePaymentBtn = new QPushButton("💳 Preuve...");
-    browsePaymentBtn->setFixedHeight(36);
-    browsePaymentBtn->setEnabled(false);
+    browsePaymentBtn = new QPushButton("💳 Parcourir...");
+    browsePaymentBtn->setFixedHeight(34);
     browsePaymentBtn->setCursor(Qt::PointingHandCursor);
-    browsePaymentBtn->setStyleSheet("QPushButton { background-color: #edf2f7; color: #a0aec0; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; }");
+    browsePaymentBtn->setStyleSheet(
+        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; outline: none; }"
+        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
+    );
 
-    paymentPathLabel = new QLabel("Non fourni");
+    paymentPathLabel = new QLabel("Aucune photo de paiement sélectionnée");
     paymentPathLabel->setStyleSheet("font-size: 12px; color: #718096;");
     paymentPathLabel->setWordWrap(true);
 
-    connect(paidCheckBox, &QCheckBox::toggled, [this](bool checked) {
-        browsePaymentBtn->setEnabled(checked);
-        browsePaymentBtn->setStyleSheet(
-            checked ? "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; outline: none; }"
-                      "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
-                    : "QPushButton { background-color: #edf2f7; color: #a0aec0; border-radius: 6px; padding: 0 14px; font-weight: bold; border: none; }"
-        );
-    });
     connect(browsePaymentBtn, &QPushButton::clicked, this, &RegistrationDialog::onBrowsePayment);
 
     payRow->addWidget(browsePaymentBtn);
     payRow->addWidget(paymentPathLabel, 1);
-    payBlock->addWidget(paidCheckBox);
+
+    paidCheckBox = new QCheckBox("Frais d'inscription réglés (reçu / preuve joint)", scrollContent);
+    paidCheckBox->setCursor(Qt::PointingHandCursor);
+    paidCheckBox->setStyleSheet("QCheckBox { color: #1a202c; font-weight: bold; font-size: 12px; margin-top: 4px; }");
+
+    payBlock->addWidget(lblPayment);
     payBlock->addLayout(payRow);
+    payBlock->addWidget(paidCheckBox);
     g3->addLayout(payBlock);
 
     mainLayout->addWidget(docGroup);
+    mainLayout->addStretch();
 
-    // Bottom Action Buttons inside scroll area
-    QHBoxLayout *btnLayout = new QHBoxLayout();
-    btnLayout->setSpacing(14);
+    scrollArea->setWidget(scrollContent);
+    rootLayout->addWidget(scrollArea, 1);
 
-    QPushButton *cancelBtn = new QPushButton("Annuler");
-    cancelBtn->setFixedHeight(42);
+    // ============================================================
+    //  FIXED ACTION BAR (always visible at bottom, outside scroll)
+    // ============================================================
+    QWidget *actionBar = new QWidget(this);
+    actionBar->setFixedHeight(60);
+    actionBar->setStyleSheet("QWidget { background-color: #ffffff; border-top: 1.5px solid #e2e8f0; }");
+
+    QHBoxLayout *btnLayout = new QHBoxLayout(actionBar);
+    btnLayout->setContentsMargins(20, 10, 20, 10);
+    btnLayout->setSpacing(12);
+
+    QPushButton *cancelBtn = new QPushButton("Annuler", actionBar);
+    cancelBtn->setFixedHeight(40);
     cancelBtn->setCursor(Qt::PointingHandCursor);
-    cancelBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 13px; border: none; padding: 0 20px; outline: none; }"
-                             "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
+    cancelBtn->setStyleSheet(
+        "QPushButton { background-color: #f1f5f9; color: #334155; border-radius: 6px; font-weight: bold; font-size: 13px; border: 1px solid #cbd5e1; padding: 0 20px; outline: none; }"
+        "QPushButton:hover { background-color: #e2e8f0; color: #0f172a; }"
+    );
     connect(cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
 
-    QPushButton *submitBtn = new QPushButton("✓ Valider mon Inscription");
-    submitBtn->setFixedHeight(42);
+    QPushButton *submitBtn = new QPushButton("✓ Valider mon Inscription", actionBar);
+    submitBtn->setFixedHeight(40);
     submitBtn->setCursor(Qt::PointingHandCursor);
-    submitBtn->setStyleSheet("QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; outline: none; }"
-                             "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }");
+    submitBtn->setStyleSheet(
+        "QPushButton { background-color: #16a34a; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; outline: none; }"
+        "QPushButton:hover { background-color: #15803d; color: #ffffff; }"
+        "QPushButton:pressed { background-color: #166534; }"
+    );
     connect(submitBtn, &QPushButton::clicked, this, &RegistrationDialog::onValidate);
 
     btnLayout->addStretch();
     btnLayout->addWidget(cancelBtn);
     btnLayout->addWidget(submitBtn);
-    mainLayout->addLayout(btnLayout);
 
-    scrollArea->setWidget(scrollContent);
-    rootLayout->addWidget(scrollArea);
+    rootLayout->addWidget(actionBar);
 }
 
 void RegistrationDialog::onBrowseId()
@@ -275,11 +299,19 @@ void RegistrationDialog::onBrowsePhoto()
 
 void RegistrationDialog::onBrowsePayment()
 {
-    QString file = QFileDialog::getOpenFileName(this, "Sélectionner la preuve de paiement", QDir::homePath(), "Documents (*.pdf *.png *.jpg *.jpeg)");
+    QString file = QFileDialog::getOpenFileName(
+        this,
+        "Sélectionner la photo ou preuve de paiement",
+        QDir::homePath(),
+        "Photos et Reçus (*.png *.jpg *.jpeg *.bmp *.webp *.pdf);;Images (*.png *.jpg *.jpeg *.bmp *.webp);;PDF (*.pdf);;Tous les fichiers (*.*)"
+    );
     if (!file.isEmpty()) {
         paymentPath = file;
         paymentPathLabel->setText(QFileInfo(file).fileName());
-        paymentPathLabel->setStyleSheet("font-size: 12px; color: #2b6cb0; font-weight: bold;");
+        paymentPathLabel->setStyleSheet("font-size: 12px; color: #16a34a; font-weight: bold;");
+        if (paidCheckBox) {
+            paidCheckBox->setChecked(true);
+        }
     }
 }
 

@@ -10,6 +10,8 @@
 #include <QInputDialog>
 #include <QFileInfo>
 #include <QScrollArea>
+#include <QScreen>
+#include <QGuiApplication>
 
 FicheDetailInscription::FicheDetailInscription(CompteEtudiant &compteRef, std::vector<CompteEtudiant> &comptesRef, QWidget *parent)
     : QDialog(parent), compte(compteRef), comptes(comptesRef)
@@ -21,8 +23,17 @@ void FicheDetailInscription::setupUI()
 {
     setWindowTitle(QString("Dossier d'Inscription — %1").arg(QString::fromStdString(compte.getId())));
     setWindowFlags(Qt::Window | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
-    setMinimumSize(620, 580);
-    resize(720, 780);
+    setMinimumSize(540, 400);
+
+    QScreen *primaryScreen = QGuiApplication::primaryScreen();
+    if (primaryScreen) {
+        QRect avail = primaryScreen->availableGeometry();
+        int targetW = qMin(700, avail.width() - 40);
+        int targetH = qMin(560, avail.height() - 80);
+        resize(targetW, targetH);
+    } else {
+        resize(660, 540);
+    }
 
     setStyleSheet(
         "QDialog { background-color: #f8fafc; font-family: 'Segoe UI', sans-serif; }"
@@ -42,18 +53,18 @@ void FicheDetailInscription::setupUI()
 
     QWidget *content = new QWidget();
     QVBoxLayout *layout = new QVBoxLayout(content);
-    layout->setContentsMargins(25, 20, 25, 20);
-    layout->setSpacing(18);
+    layout->setContentsMargins(20, 15, 20, 15);
+    layout->setSpacing(14);
 
     // Banner Header
     QWidget *header = new QWidget();
     header->setStyleSheet("background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0b1e36, stop:1 #1a365d); border-radius: 10px; color: white;");
     QVBoxLayout *hLayout = new QVBoxLayout(header);
-    hLayout->setContentsMargins(20, 16, 20, 16);
+    hLayout->setContentsMargins(18, 12, 18, 12);
 
     QLabel *hTitle = new QLabel(QString("Dossier d'Inscription : %1 %2")
         .arg(QString::fromStdString(compte.getPrenom()), QString::fromStdString(compte.getNom())));
-    hTitle->setStyleSheet("font-size: 18px; font-weight: bold; color: #d4af37; background: transparent;");
+    hTitle->setStyleSheet("font-size: 17px; font-weight: bold; color: #d4af37; background: transparent;");
 
     QLabel *hSub = new QLabel(QString("ID Étudiant : %1  |  Date de soumission : %2")
         .arg(QString::fromStdString(compte.getId()), QString::fromStdString(compte.getDateSoumission().empty() ? "Non spécifiée" : compte.getDateSoumission())));
@@ -65,18 +76,18 @@ void FicheDetailInscription::setupUI()
 
     // Personal Info Card
     QFrame *infoCard = new QFrame();
-    infoCard->setStyleSheet("QFrame { background-color: #ffffff; border-radius: 12px; border: 1.5px solid #e2e8f0; }");
+    infoCard->setStyleSheet("QFrame { background-color: #ffffff; border-radius: 10px; border: 1.5px solid #e2e8f0; }");
     QVBoxLayout *icLayout = new QVBoxLayout(infoCard);
-    icLayout->setContentsMargins(20, 20, 20, 20);
-    icLayout->setSpacing(10);
+    icLayout->setContentsMargins(16, 14, 16, 14);
+    icLayout->setSpacing(8);
 
     QLabel *infoTitle = new QLabel("👤 Informations Personnelles & Contact");
-    infoTitle->setStyleSheet("font-size: 15px; font-weight: bold; color: #0b1e36; border: none; margin-bottom: 5px;");
+    infoTitle->setStyleSheet("font-size: 14px; font-weight: bold; color: #0b1e36; border: none; margin-bottom: 3px;");
     icLayout->addWidget(infoTitle);
 
     auto addRow = [icLayout](const QString &lbl, const QString &val) {
         QHBoxLayout *h = new QHBoxLayout();
-        QLabel *l = new QLabel(lbl + " :"); l->setFixedWidth(160);
+        QLabel *l = new QLabel(lbl + " :"); l->setFixedWidth(150);
         l->setStyleSheet("font-weight: bold; color: #4a5568; border: none;");
         QLabel *v = new QLabel(val);
         v->setStyleSheet("color: #1a202c; border: none;");
@@ -97,19 +108,19 @@ void FicheDetailInscription::setupUI()
 
     // Documents Card
     QFrame *docCard = new QFrame();
-    docCard->setStyleSheet("QFrame { background-color: #ffffff; border-radius: 12px; border: 1.5px solid #e2e8f0; }");
+    docCard->setStyleSheet("QFrame { background-color: #ffffff; border-radius: 10px; border: 1.5px solid #e2e8f0; }");
     QVBoxLayout *dcLayout = new QVBoxLayout(docCard);
-    dcLayout->setContentsMargins(20, 20, 20, 20);
-    dcLayout->setSpacing(12);
+    dcLayout->setContentsMargins(16, 14, 16, 14);
+    dcLayout->setSpacing(10);
 
     QLabel *docTitle = new QLabel("📁 Pièces Justificatives Transmises");
-    docTitle->setStyleSheet("font-size: 15px; font-weight: bold; color: #0b1e36; border: none;");
+    docTitle->setStyleSheet("font-size: 14px; font-weight: bold; color: #0b1e36; border: none;");
     dcLayout->addWidget(docTitle);
 
     auto addDocRow = [dcLayout](const QString &docName, const std::string &path) {
         QHBoxLayout *h = new QHBoxLayout();
         QLabel *l = new QLabel(docName + " :");
-        l->setFixedWidth(180);
+        l->setFixedWidth(170);
         l->setStyleSheet("font-weight: bold; color: #4a5568; border: none;");
 
         QString pStr = QString::fromStdString(path);
@@ -117,8 +128,8 @@ void FicheDetailInscription::setupUI()
         pathLbl->setStyleSheet("color: #2d3748; border: none;");
 
         QPushButton *openBtn = new QPushButton("👁️ Ouvrir");
-        openBtn->setFixedWidth(90);
-        openBtn->setFixedHeight(32);
+        openBtn->setFixedWidth(85);
+        openBtn->setFixedHeight(30);
         openBtn->setCursor(Qt::PointingHandCursor);
         openBtn->setEnabled(!pStr.isEmpty());
         openBtn->setStyleSheet(
@@ -148,9 +159,9 @@ void FicheDetailInscription::setupUI()
 
     // Current Status Banner
     QFrame *statusCard = new QFrame();
-    statusCard->setStyleSheet("QFrame { background-color: #ffffff; border-radius: 12px; border: 1.5px solid #e2e8f0; }");
+    statusCard->setStyleSheet("QFrame { background-color: #ffffff; border-radius: 10px; border: 1.5px solid #e2e8f0; }");
     QHBoxLayout *scLayout = new QHBoxLayout(statusCard);
-    scLayout->setContentsMargins(20, 15, 20, 15);
+    scLayout->setContentsMargins(16, 12, 16, 12);
 
     std::string st = compte.getStatutInscription();
     QString stText = st == "Approuvé" ? "✅ Inscription Approuvée" : (st == "Rejeté" ? "❌ Inscription Rejetée" : "⏳ En attente de décision");
@@ -170,38 +181,40 @@ void FicheDetailInscription::setupUI()
     //  FIXED ACTION BUTTONS BAR (always visible at bottom)
     // ============================================================
     QWidget *actionBar = new QWidget(this);
-    actionBar->setFixedHeight(70);
-    actionBar->setStyleSheet("QWidget { background-color: #ffffff; border-top: 2px solid #e2e8f0; }");
+    actionBar->setFixedHeight(62);
+    actionBar->setStyleSheet("QWidget { background-color: #ffffff; border-top: 1.5px solid #e2e8f0; }");
 
     QHBoxLayout *actionLayout = new QHBoxLayout(actionBar);
-    actionLayout->setContentsMargins(25, 12, 25, 12);
-    actionLayout->setSpacing(15);
+    actionLayout->setContentsMargins(20, 10, 20, 10);
+    actionLayout->setSpacing(12);
 
-    QPushButton *closeBtn = new QPushButton("Fermer");
-    closeBtn->setFixedHeight(44);
-    closeBtn->setFixedWidth(120);
+    QPushButton *closeBtn = new QPushButton("Fermer", actionBar);
+    closeBtn->setFixedHeight(40);
+    closeBtn->setFixedWidth(110);
     closeBtn->setCursor(Qt::PointingHandCursor);
     closeBtn->setStyleSheet(
-        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; outline: none; }"
-        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
+        "QPushButton { background-color: #f1f5f9; color: #334155; border-radius: 6px; font-weight: bold; font-size: 13px; border: 1px solid #cbd5e1; outline: none; }"
+        "QPushButton:hover { background-color: #e2e8f0; color: #0f172a; }"
     );
     connect(closeBtn, &QPushButton::clicked, this, &QDialog::reject);
 
-    QPushButton *rejectBtn = new QPushButton("✖  Rejeter l'inscription");
-    rejectBtn->setFixedHeight(44);
+    QPushButton *rejectBtn = new QPushButton("✖  Rejeter l'inscription", actionBar);
+    rejectBtn->setFixedHeight(40);
     rejectBtn->setCursor(Qt::PointingHandCursor);
     rejectBtn->setStyleSheet(
-        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; outline: none; }"
-        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
+        "QPushButton { background-color: #dc2626; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 13px; border: none; padding: 0 20px; outline: none; }"
+        "QPushButton:hover { background-color: #b91c1c; color: #ffffff; }"
+        "QPushButton:pressed { background-color: #991b1b; }"
     );
     connect(rejectBtn, &QPushButton::clicked, this, &FicheDetailInscription::onRejectClicked);
 
-    QPushButton *approveBtn = new QPushButton("✔  Approuver l'inscription");
-    approveBtn->setFixedHeight(44);
+    QPushButton *approveBtn = new QPushButton("✔  Approuver l'inscription", actionBar);
+    approveBtn->setFixedHeight(40);
     approveBtn->setCursor(Qt::PointingHandCursor);
     approveBtn->setStyleSheet(
-        "QPushButton { background-color: #001F3F; color: #ffffff; border-radius: 8px; font-weight: bold; font-size: 14px; border: none; padding: 0 24px; outline: none; }"
-        "QPushButton:hover { background-color: #0D3B66; color: #ffffff; }"
+        "QPushButton { background-color: #16a34a; color: #ffffff; border-radius: 6px; font-weight: bold; font-size: 13px; border: none; padding: 0 20px; outline: none; }"
+        "QPushButton:hover { background-color: #15803d; color: #ffffff; }"
+        "QPushButton:pressed { background-color: #166534; }"
     );
     connect(approveBtn, &QPushButton::clicked, this, &FicheDetailInscription::onApproveClicked);
 

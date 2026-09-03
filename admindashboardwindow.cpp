@@ -177,7 +177,7 @@ QWidget* AdminDashboardWindow::createSidebar()
             "⚙️   Paramètres",
             "🚪   Déconnexion"
         };
-    } else { // Coordonnateur
+    } else { 
         menuItems = {
             "👤   Profil",
             "🏫   Ma faculté",
